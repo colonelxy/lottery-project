@@ -179,7 +179,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
      * @dev Getter function for the entrance fee
      * @notice This function returns the entrance fee for the raffle
      * @return The entrance fee
-     * usage example `getEntranceFee()`
+     * usage example  in other contracts and deployer, `getEntranceFee()`
      */
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
