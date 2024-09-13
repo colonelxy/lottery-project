@@ -44,6 +44,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     uint256 private immutable i_subscriptionId;
     uint32 private immutable i_callbackGasLimit;
     address payable[] private s_players;
+    address private s_recentWinner;
     uint256 private s_lastTimestamp;
 
     /** Events */
@@ -109,7 +110,12 @@ contract Raffle is VRFConsumerBaseV2Plus {
     function fulfillRandomWords(
         uint256 requestId,
         uint256[] calldata randomWords
-    ) internal override {}
+    ) internal override {
+        // Use modulo of randomwords received by number of players to get the winner index
+        uint256 indexOfWinner = randomWords[0] % s_players.length;
+        address payable recentWinner = s_players[indexOfWinner];
+        s_recentWinner = recentWinner;
+    }
 
     /** Getter Functions */
     function getEntranceFee() external view returns (uint256) {
