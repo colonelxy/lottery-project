@@ -9,7 +9,7 @@ libs = ["lib"]
 
 
 remappings = [
-    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/dev/',
+    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/src/v0.8/vrf/',
 ]
 
 
