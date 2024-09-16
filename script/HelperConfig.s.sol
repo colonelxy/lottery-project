@@ -24,7 +24,7 @@ contract HelperConfig is CodeConstants, Script {
         uint256 interval;
         address vrfCoordinator;
         bytes32 gasLane;
-        uint64 subscriptionId;
+        uint256 subscriptionId;
         uint32 callbackGasLimit;
         address link;
     }
