@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 import {Script} from "forge-std/Script.sol";
 import {VRFCoordinatorV2_5Mock} from "@chainlink/contracts/mocks/VRFCoordinatorV2_5Mock.sol";
-import {LinkToken} from "/test/mocks/LinkToken.sol";
+import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 abstract contract CodeConstants {
     /*VRF Mock Values */
@@ -78,7 +78,7 @@ contract HelperConfig is CodeConstants, Script {
             MOCK_GAS_PRICE_LINK,
             MOCK_WEI_PER_UINT_LINK
         );
-        LinkToken link = new LinkToken();
+        LinkToken linkToken = new LinkToken();
         // fund the mock link token
         // link.mint(address(vrfCoordinatorMock), 10000000000000000000000000);
         // // fund the mock vrf coordinator
