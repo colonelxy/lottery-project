@@ -148,8 +148,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
     /**
      * @dev Perform the upkeep necessary to pick a winner for the raffle
      * @notice This function is called by the Chainlink node to execute the raffle winner picking process
-     * @param performData - Ignored parameter, not used in this function
-     * @return None
+     * @param (performData) - Ignored parameter, not used in this function
+     
      */
     function performUpkeep(bytes calldata /* performData */) external {
         // 1. Get random number
@@ -222,5 +222,13 @@ contract Raffle is VRFConsumerBaseV2Plus {
      */
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
+    }
+
+    function getRaffleState() external view returns (RaffleState) {
+        return s_raffleState;
+    }
+
+    function getPlayers(uint256 indexOfPlayer) external view returns (address) {
+        return s_players[indexOfPlayer];
     }
 }
