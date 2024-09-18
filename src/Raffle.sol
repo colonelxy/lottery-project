@@ -65,6 +65,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     /** @dev Events */
     event RaffleEntered(address indexed player);
     event WinnerPicked(address indexed winner);
+    event RequestedRaffleWinner(uint256 indexed requestId);
 
     /**
      * @dev Constructor
@@ -184,7 +185,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
                 )
             });
 
-        s_vrfCoordinator.requestRandomWords(request);
+        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
+        emit RequestedRaffleWinner(requestId); // this is redundant though since VRFCoordinatorV2_5MOCK also emits it.
     }
 
     /**
@@ -230,5 +232,13 @@ contract Raffle is VRFConsumerBaseV2Plus {
 
     function getPlayers(uint256 indexOfPlayer) external view returns (address) {
         return s_players[indexOfPlayer];
+    }
+
+    function getLastTimeStamp() external view returns (uint256) {
+        return s_lastTimestamp;
+    }
+
+    function getRecentWinner() external view returns (address) {
+        return s_recentWinner;
     }
 }

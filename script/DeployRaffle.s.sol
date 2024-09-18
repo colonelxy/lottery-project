@@ -18,33 +18,34 @@ contract DeployRaffle is Script {
 
         if (config.subscriptionId == 0) {
             // create subscription and add consumer
-            CreateSubscription sub = new CreateSubscription();
-            (config.subscriptionId, config.vrfCoordinator) = sub
-                .createSubscription(config.vrfCoordinator);
-            // uint256 subId;
-            // address coordinator;
-            // (subId, coordinator) = sub.createSubscription(
-            //     config.vrfCoordinator
-            // );
-            // config.subscriptionId = subId;
-            // config.vrfCoordinator = coordinator;
+            CreateSubscription createSubscription = new CreateSubscription();
+            (
+                config.subscriptionId,
+                config.vrfCoordinatorV2_5
+            ) = createSubscription.createSubscription(
+                config.vrfCoordinatorV2_5,
+                config.account
+            );
 
             // Fund the subscription
 
-            FundSubscription fund = new FundSubscription();
-            fund.fundSubscription(
-                config.vrfCoordinator,
+            FundSubscription fundSubscription = new FundSubscription();
+            fundSubscription.fundSubscription(
+                config.vrfCoordinatorV2_5,
                 config.subscriptionId,
-                config.link
+                config.link,
+                config.account
             );
         }
 
+        // helperConfig.getConfig(block.chainid, config);
+
         // Start deploying the Raffle
-        vm.startBroadcast();
+        vm.startBroadcast(config.account);
         Raffle raffle = new Raffle(
             config.entranceFee,
             config.interval,
-            config.vrfCoordinator,
+            config.vrfCoordinatorV2_5,
             config.gasLane,
             config.subscriptionId,
             config.callbackGasLimit
@@ -55,8 +56,9 @@ contract DeployRaffle is Script {
         // No need to broadcast this since in the AddConsumer, it is already broadcasted
         addConsumer.addConsumer(
             address(raffle),
-            config.vrfCoordinator,
-            config.subscriptionId
+            config.vrfCoordinatorV2_5,
+            config.subscriptionId,
+            config.account
         );
         return (raffle, helperConfig);
     }
