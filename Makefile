@@ -2,7 +2,14 @@
 
 .PHONY: all test deploy
 
-build :; forge build
+build:
+	forge build
+	# npm run postbuild
+	# mkdir -p frontend/src/contracts
+	# cp ./out/Raffle.sol/Raffle.json frontend/src/contracts/
+
+
+
 
 test  :; forge test
 
@@ -16,3 +23,8 @@ deploy-anvil:
 
 verify :
 	@forge verify-contract 0xCEa2297eb56a5B001ad9239468bDeAE65D315B64 src/Raffle.sol:Raffle --etherscan-api-key $ETHERSCAN_API_KEY --rpc-url $SEPOLIA_RPC_URL --compiler-version v0.8.19 > json.json
+
+push :
+	git add .
+	git commit -m "commit"
+	git push -u origin main

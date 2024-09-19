@@ -6,8 +6,8 @@ import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 abstract contract CodeConstants {
     /*VRF Mock Values */
-    uint96 public MOCK_BASE_FEE = 0.25 ether;
-    uint96 public MOCK_GAS_PRICE_LINK = 1e9;
+    uint96 public MOCK_BASE_FEE = 0.0025 ether;
+    uint96 public MOCK_GAS_PRICE_LINK = 1e1;
 
     // LINK / ETH price
     int256 public MOCK_WEI_PER_UINT_LINK = 4e18;
@@ -60,7 +60,7 @@ contract HelperConfig is CodeConstants, Script {
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         return
             NetworkConfig({
-                entranceFee: 0.01 ether,
+                entranceFee: 0.000001 ether,
                 interval: 30,
                 vrfCoordinatorV2_5: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
                 gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae,
@@ -92,7 +92,7 @@ contract HelperConfig is CodeConstants, Script {
         vm.stopBroadcast();
         // create local network config
         localNetworkConfig = NetworkConfig({
-            entranceFee: 0.01 ether,
+            entranceFee: 0.000001 ether,
             interval: 30, // 30 seconds
             vrfCoordinatorV2_5: address(vrfCoordinatorMock),
             gasLane: 0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae, // doesn't matter
